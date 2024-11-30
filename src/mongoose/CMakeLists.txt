@@ -1,5 +1,5 @@
 # 设置 mongoose 动态库
-add_library(mongoose SHARED
+add_library(mongoose STATIC
     mongoose.c
 )
 

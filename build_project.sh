@@ -24,7 +24,7 @@ cd "$BUILD_DIR"
 
 # 运行 cmake 配置项目
 echo "运行 cmake 配置项目..."
-cmake ..
+cmake -DCMAKE_TOOLCHAIN_FILE=cmake/toolchain.cmake ..
 
 # 运行 make 编译项目
 echo "运行 make 编译项目..."
