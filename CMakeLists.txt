@@ -4,6 +4,7 @@ project(MyWebApp)
 
 # 设置 C 标准
 # set(CMAKE_C_STANDARD 99)
+set(CMAKE_BUILD_TYPE Debug)
 
 # 设置输出目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)  # 静态库输出路径
