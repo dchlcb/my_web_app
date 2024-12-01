@@ -26,4 +26,8 @@ adb push ./web_root $TARGET_DIR/
 echo "正在传输 my_web_app 文件夹..."
 adb push ./my_web_app $TARGET_DIR/
 
+# 传输 run_program.sh 文件
+echo "正在传输 run_program.sh 文件..."
+adb push ./run_program.sh $TARGET_DIR/
+
 echo "所有文件已成功传输到 $TARGET_DIR"
