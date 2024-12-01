@@ -23,7 +23,6 @@
                 }
             ],
             "miDebuggerPath": "/home/ubuntu/T113/T113-i_v1.0/out/t113_i/tlt113-minievm-emmc/longan/buildroot/host/usr/bin/arm-linux-gnueabi-gdb", // linux上适合目标板的arm格式
-
             // gdb程序路径,作为与目标板gdbserver通信的gdb client运行于linux服务器上
             "miDebuggerServerAddress": "192.168.3.43:1234"  //目标板上gdbserver监听的IP地址和 // 端口号      
         }
