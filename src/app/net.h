@@ -28,7 +28,7 @@ extern "C" {
 #define HTTPS_URL "https://0.0.0.0:443"  // Use standard privileged ports
 #else
 #define HTTP_URL "http://0.0.0.0:8000"    // Workstation build:
-#define HTTPS_URL "https://0.0.0.0:8000"  // Use non-privileged ports
+#define HTTPS_URL "https://0.0.0.0:8080"  // Use non-privileged ports
 #endif
 
 #define MAX_DEVICE_NAME 40
