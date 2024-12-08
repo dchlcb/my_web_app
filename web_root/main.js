@@ -48,6 +48,7 @@ function Sidebar({url, show}) {
       <${NavLink} title="Settings" icon=${Icons.cog} href="/settings" url=${url} />
       <${NavLink} title="Firmware Update" icon=${Icons.download} href="/update" url=${url} />
       <${NavLink} title="Events" icon=${Icons.alert} href="/events" url=${url} />
+      <${NavLink} title="WebSocket" icon=${Icons.link} href="/page_websocket" url=${url} />
     <//>
   <//>
 <//>`;
@@ -340,6 +341,91 @@ function Settings({}) {
 <//>`;
 };
 
+
+function PageWebSocket() {
+  const [url, setUrl] = useState('');
+  const [message, setMessage] = useState('');
+  const [log, setLog] = useState([]);
+  const [ws, setWs] = useState(null);
+
+  const enable = Boolean(ws);
+
+  const appendLog = (entry) => {
+    setLog((prevLog) => [...prevLog, entry]);
+  };
+
+  const connectHandler = () => {
+    if (ws) {
+      ws.close();
+      return;
+    }
+
+    const newWs = new WebSocket(url);
+    newWs.onopen = () => appendLog('CONNECTION OPENED');
+    newWs.onmessage = (ev) => appendLog(`RECEIVED: ${ev.data}`);
+    newWs.onerror = (ev) => appendLog(`ERROR: ${ev}`);
+    newWs.onclose = () => {
+      appendLog('CONNECTION CLOSED');
+      setWs(null);
+    };
+    setWs(newWs);
+  };
+
+  const sendHandler = () => {
+    if (!ws) return;
+    appendLog(`SENT: ${message}`);
+    ws.send(message);
+  };
+
+  return html`
+    <div class="m-4 p-4 border rounded bg-gray-50">
+      <div class="mb-4">
+        <${Setting}
+          title="WebSocket URL"
+          value=${url}
+          setfn=${setUrl}
+          type="text"
+          placeholder="eg. http://192.168.3.66:8099/websocket"
+        />
+      </div>
+      <div class="mb-4">
+        <${Setting}
+          title="Message"
+          value=${message}
+          setfn=${setMessage}
+          type="text"
+          placeholder="Enter message to send"
+          disabled=${!enable}
+        />
+      </div>
+      <div class="flex space-x-2 mb-4">
+        <${Button}
+          title=${enable ? 'Disconnect' : 'Connect'}
+          onclick=${connectHandler}
+        />
+        <${Button}
+          title="Send"
+          onclick=${sendHandler}
+          disabled=${!enable}
+        />
+      </div>
+      <div class="bg-white border rounded-md p-3 h-40 overflow-auto">
+        <strong>Log:</strong>
+        <div>
+          ${log.map((entry) => html`<div>${entry}</div>`)}
+        </div>
+      </div>
+      <div class="bg-white border rounded-md p-3 mt-4" role="alert">
+        <${DeveloperNote}
+          text="This component demonstrates WebSocket communication. 
+          Connect to a WebSocket server by entering the URL, then send and receive messages. 
+          Logs are displayed below."
+        />
+      </div>
+    </div>
+  `;
+}
+
 const App = function({}) {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState('/');
@@ -368,6 +454,7 @@ const App = function({}) {
       <${Settings} path="settings" />
       <${FirmwareUpdate} path="update" />
       <${Events} path="events" />
+      <${PageWebSocket} path="page_websocket" />
     <//>
   <//>
 <//>`;

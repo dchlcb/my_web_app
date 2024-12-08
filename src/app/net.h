@@ -8,6 +8,8 @@
 extern "C" {
 #endif
 
+#define MG_ENABLE_LINES
+
 #if MG_ENABLE_FATFS
 #define HAL_FS (&mg_fs_fat)
 #define HAL_ROOT_DIR "/"
@@ -29,6 +31,7 @@ extern "C" {
 #else
 #define HTTP_URL "http://0.0.0.0:8000"    // Workstation build:
 #define HTTPS_URL "https://0.0.0.0:8080"  // Use non-privileged ports
+#define WEB_SOCKET_URL "ws://0.0.0.0:8099"
 #endif
 
 #define MAX_DEVICE_NAME 40
