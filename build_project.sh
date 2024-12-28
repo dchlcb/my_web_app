@@ -36,4 +36,12 @@ echo "运行 make 编译项目..."
 make
 
 # 输出构建结果
-echo "构建完成！可执行文件和库已输出到 $PROJECT_DIR/bin 目录。"
+echo "构建完成！可执行文件和库已输出到 $PROJECT_DIR 目录。"
+
+# cp -r $PROJECT_DIR/lib $PROJECT_DIR/build/bin
+# echo "动态库文件已复制到$PROJECT_DIR/build/bin。"
+
+# cp -r $PROJECT_DIR/web_root $PROJECT_DIR/build/bin
+# cp -r $PROJECT_DIR/certs $PROJECT_DIR/build/bin
+# echo "网页文件已复制到$PROJECT_DIR/build/bin。"
+

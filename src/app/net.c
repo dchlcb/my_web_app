@@ -293,12 +293,6 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data)
     {
       handle_firmware_upload(c, hm);
     }
-    else if (mg_match(hm->uri, mg_str("/websocket"), NULL))
-    {
-      // Upgrade to websocket. From now on, a connection is a full-duplex
-      // Websocket connection, which will receive MG_EV_WS_MSG events.
-      mg_ws_upgrade(c, hm, NULL);
-    }
     else
     {
       struct mg_http_serve_opts opts;
@@ -311,64 +305,13 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data)
               hm->method.buf, (int)hm->uri.len, hm->uri.buf, (int)3,
               &c->send.buf[9]));
   }
-  else if (ev == MG_EV_WS_MSG)
-  {
-    // Got websocket frame. Received data is wm->data. Echo it back!
-    struct mg_ws_message *wm = (struct mg_ws_message *)ev_data;
-    mg_ws_send(c, wm->data.buf, wm->data.len, WEBSOCKET_OP_TEXT);
-  }
-  
 }
-
-
-
-// // This RESTful server implements the following endpoints:
-// //   /websocket - upgrade to Websocket, and implement websocket echo server
-// //   /rest - respond with JSON string {"result": 123}
-// //   any other URI serves static files from s_web_root
-// static void fn(struct mg_connection *c, int ev, void *ev_data)
-// {
-//   if (ev == MG_EV_OPEN)
-//   {
-//     // c->is_hexdumping = 1;
-//   }
-//   else if (ev == MG_EV_HTTP_MSG)
-//   {
-//     struct mg_http_message *hm = (struct mg_http_message *)ev_data;
-//     if (mg_match(hm->uri, mg_str("/websocket"), NULL))
-//     {
-//       // Upgrade to websocket. From now on, a connection is a full-duplex
-//       // Websocket connection, which will receive MG_EV_WS_MSG events.
-//       mg_ws_upgrade(c, hm, NULL);
-//     }
-//     else if (mg_match(hm->uri, mg_str("/rest"), NULL))
-//     {
-//       // Serve REST response
-//       mg_http_reply(c, 200, "", "{\"result\": %d}\n", 123);
-//     }
-//     else
-//     {
-//       // Serve static files
-//       struct mg_http_serve_opts opts = {.root_dir = s_web_root};
-//       mg_http_serve_dir(c, ev_data, &opts);
-//     }
-//   }
-//   else if (ev == MG_EV_WS_MSG)
-//   {
-//     // Got websocket frame. Received data is wm->data. Echo it back!
-//     struct mg_ws_message *wm = (struct mg_ws_message *)ev_data;
-//     mg_ws_send(c, wm->data.buf, wm->data.len, WEBSOCKET_OP_TEXT);
-//   }
-// }
 
 void net_init(struct mg_mgr *mgr)
 {
   s_settings.device_name = strdup("My Device");
   mg_http_listen(mgr, HTTP_URL, ev_handler, NULL);
   mg_http_listen(mgr, HTTPS_URL, ev_handler, (void *)1);
-  mg_http_listen(mgr, WEB_SOCKET_URL, ev_handler, NULL); // Create HTTP listener
   mg_timer_add(mgr, 3600 * 1000, MG_TIMER_RUN_NOW | MG_TIMER_REPEAT,
                timer_sntp_fn, mgr);
 }
-
-

@@ -9,7 +9,7 @@
             "name": "(gdb) 启动", //配置名称，显示在配置下拉菜单中
             "type": "cppdbg", //配置类型
             "request": "launch", //请求配置类型，可以是启动或者是附加
-            "program": "/home/ubuntu/web_app/web_demo/my_web_app/my_web_app", // linux上程序可执行文件的完整路径
+            "program": "/home/ubuntu/web_app/web_demo/web_demo/web_demo", // linux上程序可执行文件的完整路径（直接编译或交叉编译后的二进制文件路径（虚拟机ubuntu））
             "args": [], //传递给程序的命令行参数
             "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
             "cwd": "${workspaceFolder}", //目标的工作目录
@@ -23,9 +23,10 @@
                     "ignoreFailures": true
                 }
             ],
+            //在板子上调试程序时，取消注释以下两条
             "miDebuggerPath": "/home/ubuntu/T113/T113-i_v1.0/out/t113_i/tlt113-minievm-emmc/longan/buildroot/host/usr/bin/arm-linux-gnueabi-gdb", // linux上适合目标板的arm格式
             // gdb程序路径,作为与目标板gdbserver通信的gdb client运行于linux服务器上（虚拟机ubuntu）
-            "miDebuggerServerAddress": "192.168.3.49:1234"  //目标板上gdbserver监听的IP地址和 // 端口号      
+            "miDebuggerServerAddress": "192.168.3.66:1234"  //目标板上gdbserver监听的IP地址和端口号      
         }
     ]
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置目标路径
-TARGET_DIR="/root/my_web_app"
+TARGET_DIR="/root/web_app"
 
 # 检查是否已经连接到设备
 adb devices | grep -w "device" > /dev/null
@@ -22,9 +22,14 @@ adb push ./certs $TARGET_DIR/
 echo "正在传输 web_root 文件夹..."
 adb push ./web_root $TARGET_DIR/
 
-# 传输 my_web_app 文件夹
-echo "正在传输 my_web_app 文件夹..."
-adb push ./my_web_app $TARGET_DIR/
+# 传输 lib 文件夹
+echo "正在传输 lib 文件夹..."
+adb push ./lib $TARGET_DIR/
+
+# 传输 web_demo 文件(二进制文件)
+echo "正在传输二进制文件 web_demo ..."
+adb push ./web_demo $TARGET_DIR/
+
 
 # 传输 run_program.sh 文件
 echo "正在传输 run_program.sh 文件..."
