@@ -29,7 +29,16 @@ endif()
 add_executable(web_demo main.c)
 # 链接静态库和动态库
 target_link_libraries(web_demo PUBLIC app mongoose)
-target_link_libraries(web_demo PUBLIC pthread rt)
+
+# 启用 POSIX 特性
+if(UNIX)
+    target_link_libraries(web_demo PUBLIC pthread rt)
+endif()
+
+
+if(MINGW)
+    target_link_libraries(web_demo PUBLIC pthread)
+endif()
 
 
 #动态库路径通过 $ORIGIN（Linux 和 macOS）相对于可执行文件的路径自动解析为 ./lib

@@ -8,4 +8,10 @@ target_include_directories(mongoose PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+if(MINGW)
+    target_link_libraries(mongoose PRIVATE ws2_32)
+endif()
+
+
+
 
