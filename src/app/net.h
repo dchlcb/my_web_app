@@ -29,9 +29,9 @@ extern "C" {
 #define HTTP_URL "http://0.0.0.0:80"     // Embedded build:
 #define HTTPS_URL "https://0.0.0.0:443"  // Use standard privileged ports
 #else
-#define HTTP_URL "http://0.0.0.0:12340"    // Workstation build:
-#define HTTPS_URL "https://0.0.0.0:12341"  // Use non-privileged ports
-#define WEB_SOCKET_URL "ws://0.0.0.0:12342"
+#define HTTP_URL "http://0.0.0.0:8000"    // Workstation build:
+#define HTTPS_URL "https://0.0.0.0:8080"  // Use non-privileged ports
+#define WEB_SOCKET_URL "ws://0.0.0.0:8099"
 #endif
 
 #define MAX_DEVICE_NAME 40
