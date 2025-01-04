@@ -25,16 +25,30 @@
 #include "hal.h"
 #include "mongoose.h"
 #include "net.h"
+#include "platform_mq.h"
 
 #define BLINK_PERIOD_MS 1000 // LED blinking period in millis
 
 // 全局变量
-sem_t sem_mutex;
-pthread_mutex_t mutex;
+sem_t sem_test;
+MessageQueue queue;
+
+
+const char *msg1 = "Hello, World!";
+const char *msg2 = "C Programming";
+int counter = 0;
 
 static void timer_fn(void *arg)
 {
     gpio_toggle(LED1); // Blink LED
+    sem_post(&sem_test);
+
+    // 入队测试
+    mq_enqueue(&queue, msg1, strlen(msg1) + 1);
+    mq_enqueue(&queue, msg2, strlen(msg2) + 1);
+    mq_enqueue(&queue, &counter, sizeof(counter));
+
+
     (void)arg;         // Unused
 }
 
@@ -65,15 +79,21 @@ void *thread1_func(void *arg)
 // 线程2的函数
 void *thread2_func(void *arg)
 {
-
+    
+    char *data;
+    size_t data_size;
     for (;;)
     {
-        sem_wait(&sem_mutex); // 加锁
-        pthread_mutex_lock(&mutex);
+        sem_wait(&sem_test);    //等待信号量
         printf("thread2 is running!\n");
-        pthread_mutex_unlock(&mutex);
-        sem_post(&sem_mutex); // 释放锁
-        sleep(1);
+        // 出队测试
+        while (mq_dequeue(&queue, (void **)&data, &data_size) == 0)
+        {
+            printf("Dequeued message: %s\n", data);
+            free(data); // 注意释放消息数据
+            printf("Queue size after dequeuing: %zu\n", mq_size(&queue));
+        }
+
     }
 
     return 0;
@@ -83,8 +103,8 @@ void semaphore_init()
 {
     int ret = 0;
 
-    // 创建信号量 (互斥锁)
-    ret = sem_init(&sem_mutex, 0, 1); // 第二个参数为0表示线程间共享，1表示进程间共享
+    // 创建信号量
+    ret = sem_init(&sem_test, 0, 0); // 第二个参数为0表示线程间共享，1表示进程间共享，第三个参数为信号量的初始值
     if (ret)
     {
         printf("sem_init fail!");
@@ -93,31 +113,17 @@ void semaphore_init()
 }
 
 
-void mutex_init()
-{
-    int ret = 0;
-
-    // 创建信号量 (互斥锁)
-    ret = pthread_mutex_init(&mutex, NULL);
-    if (ret)
-    {
-        printf("mutex_init fail!");
-        exit(1);
-    }
-}
-
 
 void cleanup()
 {
-
-    sem_destroy(&sem_mutex); // 清理资源，信号量不再使用
-    pthread_mutex_destroy(&mutex);
+    sem_destroy(&sem_test); // 清理资源，信号量不再使用
 }
 
 int main()
 {
     // 初始化信号量
     semaphore_init();
+    mq_init(&queue);
 
     // 创建两个线程
     pthread_t thread1, thread2;
