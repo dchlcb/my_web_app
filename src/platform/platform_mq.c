@@ -12,10 +12,6 @@
  * 2025-01-04     v1.0        wpc         the first version
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
 
 #include "platform_mq.h"
 

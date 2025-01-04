@@ -20,12 +20,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <semaphore.h>
-// #include <sys/mman.h>
 
 #include "hal.h"
 #include "mongoose.h"
 #include "net.h"
 #include "platform_mq.h"
+#include "platform_sys.h"
 
 #define BLINK_PERIOD_MS 1000 // LED blinking period in millis
 
@@ -41,12 +41,12 @@ int counter = 0;
 static void timer_fn(void *arg)
 {
     gpio_toggle(LED1); // Blink LED
-    sem_post(&sem_test);
+    // sem_post(&sem_test);
 
     // 入队测试
-    mq_enqueue(&queue, msg1, strlen(msg1) + 1);
-    mq_enqueue(&queue, msg2, strlen(msg2) + 1);
-    mq_enqueue(&queue, &counter, sizeof(counter));
+    // mq_enqueue(&queue, msg1, strlen(msg1) + 1);
+    // mq_enqueue(&queue, msg2, strlen(msg2) + 1);
+    // mq_enqueue(&queue, &counter, sizeof(counter));
 
 
     (void)arg;         // Unused
@@ -64,6 +64,7 @@ static void run_mongoose(void)
     for (;;)
     {                         // Infinite event loop
         mg_mgr_poll(&mgr, 0); // Process network events
+        delay_ms(1);
     }
 }
 
