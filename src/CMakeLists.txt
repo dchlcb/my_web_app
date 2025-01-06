@@ -11,6 +11,8 @@ cmake_minimum_required(VERSION 3.10)
 add_subdirectory(app)
 add_subdirectory(mongoose)
 add_subdirectory(platform)
+add_subdirectory(sqlite3)
+add_subdirectory(cjson)
 
 # 使用 MinGW 编译器时启用 POSIX
 if(MINGW)
@@ -28,7 +30,7 @@ endif()
 # 指定源文件
 add_executable(web_demo main.c)
 # 链接静态库和动态库
-target_link_libraries(web_demo PUBLIC app mongoose platform)
+target_link_libraries(web_demo PUBLIC app mongoose platform sqlite3 cjson)
 
 # 启用 POSIX 特性
 if(UNIX)
@@ -50,4 +52,6 @@ target_include_directories(web_demo PUBLIC
     ${CMAKE_SOURCE_DIR}/src/app
     ${CMAKE_SOURCE_DIR}/src/mongoose
     ${CMAKE_SOURCE_DIR}/src/platform
+    ${CMAKE_SOURCE_DIR}/src/sqlite3
 )
+

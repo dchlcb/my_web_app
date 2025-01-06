@@ -85,10 +85,10 @@ void *thread2_func(void *arg)
     size_t data_size;
     for (;;)
     {
-        sem_wait(&sem_test);    //等待信号量
+        // sem_wait(&sem_test);    //等待信号量
         printf("thread2 is running!\n");
         // 出队测试
-        while (mq_dequeue(&queue, (void **)&data, &data_size) == 0)
+        if (mq_dequeue(&queue, (void **)&data, &data_size, PLATFORM_MQ_WAIT_FOREVER) == 0)
         {
             printf("Dequeued message: %s\n", data);
             free(data); // 注意释放消息数据
