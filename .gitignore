@@ -1,2 +1,6 @@
 build/
-my_web_app
+web_demo
+lib/*
+*.exe
+*.dll
+

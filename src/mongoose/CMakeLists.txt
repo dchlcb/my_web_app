@@ -1,5 +1,5 @@
 # 设置 mongoose 动态库
-add_library(mongoose STATIC
+add_library(mongoose SHARED
     mongoose.c
 )
 
@@ -7,5 +7,11 @@ add_library(mongoose STATIC
 target_include_directories(mongoose PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+if(MINGW)
+    target_link_libraries(mongoose PRIVATE ws2_32)
+endif()
+
+
 
 

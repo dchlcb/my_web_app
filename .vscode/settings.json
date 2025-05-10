@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "net.h": "c",
+        "type_traits": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "pthread.h": "c",
+        "platform_mq.h": "c",
+        "semaphore.h": "c",
+        "platform_sys.h": "c",
+        "time.h": "c"
+    }
+}

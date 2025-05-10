@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "gnu++14",
+            "compilerPath": "D:\\Program\\MinGW\\x86_64-14.2.0-release-posix-seh-ucrt-rt_v12-rev0\\mingw64\\bin\\gcc.exe"
+        }
+    ],
+    "version": 4
+}
+
