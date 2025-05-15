@@ -1,5 +1,5 @@
 # 搜索所有源文件
-file(GLOB APP_SOURCES "*.c")
+file(GLOB APP_SOURCES "*.cpp")
 file(GLOB APP_HEADERS "*.h")
 
 # 设置 app 静态库
@@ -11,5 +11,5 @@ target_include_directories(app PUBLIC
 )
 
 # 链接 mongoose 动态库
-target_link_libraries(app PRIVATE mongoose)
-
+# target_link_libraries(app PRIVATE mongoose)
+# target_link_libraries(app PRIVATE xml2)

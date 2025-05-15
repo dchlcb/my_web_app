@@ -1,6 +1,6 @@
 # 设置 CMake 最低版本和项目名称
 cmake_minimum_required(VERSION 3.10)
-project(MyApp)
+project(MyProgram)
 
 # 设置 C 标准
 # set(CMAKE_C_STANDARD 99)
