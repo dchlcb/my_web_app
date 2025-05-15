@@ -9,8 +9,8 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 # set(CMAKE_C_COMPILER /path/to/your/toolchain/arm-gcc)
 # set(CMAKE_CXX_COMPILER /path/to/your/toolchain/arm-g++)
 
-set(CMAKE_C_COMPILER /home/ubuntu/T113-i-EVM/T113-i_v1.0/out/t113_i/tlt113-minievm-emmc/longan/buildroot/host/usr/bin/arm-linux-gnueabi-gcc)
-set(CMAKE_CXX_COMPILER /home/ubuntu/T113-i-EVM/T113-i_v1.0/out/t113_i/tlt113-minievm-emmc/longan/buildroot/host/usr/bin/arm-linux-gnueabi-g++)
+set(CMAKE_C_COMPILER /opt/atk-dlrk3568-5_10_sdk-toolchain/usr/bin/aarch64-buildroot-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER /opt/atk-dlrk3568-5_10_sdk-toolchain/usr/bin/aarch64-buildroot-linux-gnu-g++)
 
 # # 设置目标架构
 # set(CMAKE_FIND_ROOT_PATH /path/to/your/sysroot)

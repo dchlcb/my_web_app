@@ -7,9 +7,11 @@ add_library(app STATIC ${APP_SOURCES})
 
 # 设置 app 库的头文件搜索路径
 target_include_directories(app PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR} 
+    /opt/atk-dlrk3568-5_10_sdk-toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/libxml2/
+
 )
 
 # 链接 mongoose 动态库
 # target_link_libraries(app PRIVATE mongoose)
-# target_link_libraries(app PRIVATE xml2)
+target_link_libraries(app PRIVATE xml2)

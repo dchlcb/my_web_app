@@ -5,11 +5,9 @@ cmake_minimum_required(VERSION 3.10)
 add_subdirectory(app)
 # add_subdirectory(mongoose)
 
-link_libraries(xml2)  # 全局生效
-
 # 指定源文件
-add_executable(my_program main.cpp)
-
+add_executable(my_program ./app/main.cpp)
+# target_link_libraries(my_program PRIVATE xml2)
 
 # 链接静态库和动态库
 target_link_libraries(my_program PRIVATE app)
