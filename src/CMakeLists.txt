@@ -6,13 +6,13 @@ add_subdirectory(app)
 add_subdirectory(mongoose)
 
 # 指定源文件
-add_executable(my_web_app main.c)
+add_executable(my_app main.c)
 
 # 链接静态库和动态库
-target_link_libraries(my_web_app PRIVATE app mongoose)
+target_link_libraries(my_app PRIVATE app mongoose)
 
 # 包含头文件目录
-target_include_directories(my_web_app PRIVATE
+target_include_directories(my_app PRIVATE
     ${CMAKE_SOURCE_DIR}/src/app
     ${CMAKE_SOURCE_DIR}/src/mongoose
 )
