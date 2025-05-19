@@ -36,4 +36,4 @@ echo "运行 make 编译项目..."
 make
 
 # 输出构建结果
-echo "构建完成！可执行文件和库已输出到 $PROJECT_DIR/bin 目录。"
+echo "构建完成！可执行文件和库已输出到 $PROJECT_DIR/build/bin 目录。"
