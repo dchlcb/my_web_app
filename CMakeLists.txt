@@ -2,6 +2,15 @@
 cmake_minimum_required(VERSION 3.10)
 project(MyProgram)
 
+include(ProcessorCount)
+ProcessorCount(N)
+if(NOT N EQUAL 0)
+    message(STATUS "Detected CPU cores: ${N}")  # 打印核心数
+    set(CMAKE_BUILD_PARALLEL_LEVEL ${N})        # 设置并行编译线程数
+else()
+    message(WARNING "Failed to detect CPU cores! Using default build parallelism.")
+endif()
+
 # 设置 C 标准
 # set(CMAKE_C_STANDARD 99)
 set(CMAKE_BUILD_TYPE Debug)
